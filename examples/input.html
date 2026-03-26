@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aerio test</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "aerio": "../dist/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import { IO } from "aerio";
+
+      const program = IO.input("Enter your name: ").pipe(
+        IO.andThen((name) => IO.notify(`Hello, ${name}!`)),
+      );
+
+      IO.unsafeRun(program);
+    </script>
+  </body>
+</html>

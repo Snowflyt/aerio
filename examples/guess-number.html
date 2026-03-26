@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aerio test</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "aerio": "../dist/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import { IO } from "aerio";
+
+      const chooseSecret = IO.sync(
+        () => Math.floor(Math.random() * 100) + 1,
+      );
+
+      const promptGuess = (message, attempt) =>
+        IO.input(
+          (message ? message + "\n" : "") +
+          `Attempt ${attempt} - guess a number between 1 and 100: `,
+        ).pipe(
+          IO.andThen((value) => parseInt(value.trim())),
+          IO.andThen((guess) =>
+            isNaN(guess) ? promptGuess("Please enter a valid integer.", attempt) : IO.of(guess),
+          ),
+        );
+
+      const play = (secret, message = "", attempt = 1) =>
+        promptGuess(message, attempt).pipe(
+          IO.andThen((guess) =>
+            guess === secret ?
+              IO.notify(`You guessed it in ${attempt} attempt${attempt === 1 ? "" : "s"}!`)
+            : play(secret, `Too ${guess < secret ? "low" : "high"}. Try again`, attempt + 1),
+          ),
+        );
+
+      const program = chooseSecret.pipe(
+        IO.andThen((secret) => play(secret, "Guess the number between 1 and 100.")),
+      );
+
+      IO.unsafeRun(program);
+    </script>
+  </body>
+</html>

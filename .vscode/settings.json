@@ -1,0 +1,19 @@
+{
+  "cSpell.words": [
+    "aerio",
+    "cancellers",
+    "contramap",
+    "finalizer",
+    "finalizers",
+    "getline",
+    "keepalive",
+    "Kindlevel",
+    "macrotask",
+    "macrotasks",
+    "sonarjs",
+    "stringifiable",
+    "tinyio",
+    "uncancellable"
+  ],
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
+}

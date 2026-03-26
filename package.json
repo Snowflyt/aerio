@@ -1,0 +1,279 @@
+{
+  "name": "aerio",
+  "version": "0.1.0-beta.0",
+  "private": true,
+  "description": "A clean asynchronous runtime (IO monad) for TypeScript.",
+  "keywords": [
+    "typescript",
+    "async",
+    "asynchronous",
+    "async programming",
+    "runtime",
+    "async runtime",
+    "io",
+    "io monad",
+    "monad",
+    "cancellation",
+    "cancelable",
+    "cancellable",
+    "concurrency",
+    "structured concurrency",
+    "functional programming",
+    "fp"
+  ],
+  "homepage": "https://github.com/kindlevel/aerio",
+  "bugs": {
+    "url": "https://github.com/kindlevel/aerio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kindlevel/aerio.git"
+  },
+  "license": "MPL-2.0",
+  "author": "Ge Gao (Snowflyt) <gaoge011022@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./cjs/index.js"
+    },
+    "./index": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./cjs/index.js"
+    },
+    "./IO": {
+      "types": "./IO.d.ts",
+      "import": "./IO.js",
+      "require": "./cjs/IO.js"
+    },
+    "./TestControl": {
+      "types": "./TestControl.d.ts",
+      "import": "./TestControl.js",
+      "require": "./cjs/TestControl.js"
+    },
+    "./Schedule": {
+      "types": "./Schedule.d.ts",
+      "import": "./Schedule.js",
+      "require": "./cjs/Schedule.js"
+    },
+    "./Outcome": {
+      "types": "./Outcome.d.ts",
+      "import": "./Outcome.js",
+      "require": "./cjs/Outcome.js"
+    },
+    "./Fiber": {
+      "types": "./Fiber.d.ts",
+      "import": "./Fiber.js",
+      "require": "./cjs/Fiber.js"
+    },
+    "./FiberLocal": {
+      "types": "./FiberLocal.d.ts",
+      "import": "./FiberLocal.js",
+      "require": "./cjs/FiberLocal.js"
+    },
+    "./Ref": {
+      "types": "./Ref.d.ts",
+      "import": "./Ref.js",
+      "require": "./cjs/Ref.js"
+    },
+    "./Deferred": {
+      "types": "./Deferred.d.ts",
+      "import": "./Deferred.js",
+      "require": "./cjs/Deferred.js"
+    },
+    "./core/IO": {
+      "types": "./core/IO.d.ts",
+      "import": "./core/IO.js",
+      "require": "./cjs/core/IO.js"
+    },
+    "./core/Schedule": {
+      "types": "./core/Schedule.d.ts",
+      "import": "./core/Schedule.js",
+      "require": "./cjs/core/Schedule.js"
+    },
+    "./core/Outcome": {
+      "types": "./core/Outcome.d.ts",
+      "import": "./core/Outcome.js",
+      "require": "./cjs/core/Outcome.js"
+    },
+    "./core/Fiber": {
+      "types": "./core/Fiber.d.ts",
+      "import": "./core/Fiber.js",
+      "require": "./cjs/core/Fiber.js"
+    },
+    "./core/FiberLocal": {
+      "types": "./core/FiberLocal.d.ts",
+      "import": "./core/FiberLocal.js",
+      "require": "./cjs/core/FiberLocal.js"
+    },
+    "./core/Ref": {
+      "types": "./core/Ref.d.ts",
+      "import": "./core/Ref.js",
+      "require": "./cjs/core/Ref.js"
+    },
+    "./core/Deferred": {
+      "types": "./core/Deferred.d.ts",
+      "import": "./core/Deferred.js",
+      "require": "./cjs/core/Deferred.js"
+    },
+    "./typeclass/Applicative": {
+      "types": "./typeclass/Applicative.d.ts",
+      "import": "./typeclass/Applicative.js",
+      "require": "./cjs/typeclass/Applicative.js"
+    },
+    "./typeclass/ApplicativeThrow": {
+      "types": "./typeclass/ApplicativeThrow.d.ts",
+      "import": "./typeclass/ApplicativeThrow.js",
+      "require": "./cjs/typeclass/ApplicativeThrow.js"
+    },
+    "./typeclass/Apply": {
+      "types": "./typeclass/Apply.d.ts",
+      "import": "./typeclass/Apply.js",
+      "require": "./cjs/typeclass/Apply.js"
+    },
+    "./typeclass/Async": {
+      "types": "./typeclass/Async.d.ts",
+      "import": "./typeclass/Async.js",
+      "require": "./cjs/typeclass/Async.js"
+    },
+    "./typeclass/Clock": {
+      "types": "./typeclass/Clock.d.ts",
+      "import": "./typeclass/Clock.js",
+      "require": "./cjs/typeclass/Clock.js"
+    },
+    "./typeclass/Concurrent": {
+      "types": "./typeclass/Concurrent.d.ts",
+      "import": "./typeclass/Concurrent.js",
+      "require": "./cjs/typeclass/Concurrent.js"
+    },
+    "./typeclass/Contravariant": {
+      "types": "./typeclass/Contravariant.d.ts",
+      "import": "./typeclass/Contravariant.js",
+      "require": "./cjs/typeclass/Contravariant.js"
+    },
+    "./typeclass/Covariant": {
+      "types": "./typeclass/Covariant.d.ts",
+      "import": "./typeclass/Covariant.js",
+      "require": "./cjs/typeclass/Covariant.js"
+    },
+    "./typeclass/Do": {
+      "types": "./typeclass/Do.d.ts",
+      "import": "./typeclass/Do.js",
+      "require": "./cjs/typeclass/Do.js"
+    },
+    "./typeclass/FlatMap": {
+      "types": "./typeclass/FlatMap.d.ts",
+      "import": "./typeclass/FlatMap.js",
+      "require": "./cjs/typeclass/FlatMap.js"
+    },
+    "./typeclass/Invariant": {
+      "types": "./typeclass/Invariant.d.ts",
+      "import": "./typeclass/Invariant.js",
+      "require": "./cjs/typeclass/Invariant.js"
+    },
+    "./typeclass/Monad": {
+      "types": "./typeclass/Monad.d.ts",
+      "import": "./typeclass/Monad.js",
+      "require": "./cjs/typeclass/Monad.js"
+    },
+    "./typeclass/MonadCancel": {
+      "types": "./typeclass/MonadCancel.d.ts",
+      "import": "./typeclass/MonadCancel.js",
+      "require": "./cjs/typeclass/MonadCancel.js"
+    },
+    "./typeclass/MonadThrow": {
+      "types": "./typeclass/MonadThrow.d.ts",
+      "import": "./typeclass/MonadThrow.js",
+      "require": "./cjs/typeclass/MonadThrow.js"
+    },
+    "./typeclass/MonadZip": {
+      "types": "./typeclass/MonadZip.d.ts",
+      "import": "./typeclass/MonadZip.js",
+      "require": "./cjs/typeclass/MonadZip.js"
+    },
+    "./typeclass/Of": {
+      "types": "./typeclass/Of.d.ts",
+      "import": "./typeclass/Of.js",
+      "require": "./cjs/typeclass/Of.js"
+    },
+    "./typeclass/Sleep": {
+      "types": "./typeclass/Sleep.d.ts",
+      "import": "./typeclass/Sleep.js",
+      "require": "./cjs/typeclass/Sleep.js"
+    },
+    "./typeclass/Spawn": {
+      "types": "./typeclass/Spawn.d.ts",
+      "import": "./typeclass/Spawn.js",
+      "require": "./cjs/typeclass/Spawn.js"
+    },
+    "./typeclass/Sync": {
+      "types": "./typeclass/Sync.d.ts",
+      "import": "./typeclass/Sync.js",
+      "require": "./cjs/typeclass/Sync.js"
+    }
+  },
+  "main": "./cjs/index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "bench": "vitest bench --run",
+    "bench:watch": "vitest bench",
+    "build": "rimraf dist && npm run typecheck && npm run test && npm run compile && node -e \"import fs from 'node:fs'; fs.cpSync('package.json', 'dist/package.json')\" && json -I -f dist/package.json -e \"delete this.private; delete this.workspaces; delete this.scripts; delete this.devDependencies\" && node -e \"import fs from 'node:fs'; ['LICENSE', 'README.md'].forEach((name) => fs.cpSync(name, 'dist/' + name)); fs.cpSync('docs', 'dist/docs', { recursive: true })\"",
+    "build:dev": "rimraf dist && npm run compile:dev && node -e \"import fs from 'node:fs'; fs.cpSync('package.json', 'dist/package.json')\" && json -I -f dist/package.json -e \"delete this.private; delete this.workspaces; delete this.scripts; delete this.devDependencies\" && node -e \"import fs from 'node:fs'; ['LICENSE', 'README.md'].forEach((name) => fs.cpSync(name, 'dist/' + name)); fs.cpSync('docs', 'dist/docs', { recursive: true })\"",
+    "compile": "node -e \"import fs from 'node:fs'; fs.cpSync('src', 'dist', { recursive: true })\" && rimraf -g \"dist/**/*.{spec,proof}.ts\" && node -e \"import path from 'node:path'; import fs from 'node:fs'; import tsBlankSpace from 'ts-blank-space'; fs.readdirSync('dist', { recursive: true }).map((file) => path.join('dist', file)).filter((file) => file.endsWith('.ts') && !file.endsWith('.d.ts') && fs.statSync(file).isFile()).forEach((file) => { fs.writeFileSync(file.substring(0, file.lastIndexOf('.')) + '.js', tsBlankSpace(fs.readFileSync(file, 'utf-8'))); fs.rmSync(file); })\" && tsc-alias --resolve-full-paths -p tsconfig.build.json && node -e \"import { replaceInFileSync } from 'replace-in-file'; [/ *\\/\\/ eslint-disable-next-line [^\\n]+\\n/g, / *\\/\\* eslint-(disable|enable) [^\\n]+ \\*\\/\\n/g, / *\\/\\/ @ts-[^\\n]+\\n/g].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.{js,ts}', from: regex, to: '' })); [/ *\\/\\/ prettier-ignore\\s*\\n/g, ].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.js', from: regex, to: '' })); replaceInFileSync({ files: 'dist/**/*.js', from: /(\\w+)\\s+,/g, to: '$' + 1 + ',' })\" && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown && node -e \"import { replaceInFileSync } from 'replace-in-file'; replaceInFileSync({ files: 'dist/**/*.js', from: /^ *\\*\\/\\n\\n/gm, to: '*/\\n' }); let results; do { results = replaceInFileSync({ files: 'dist/**/*.js', from: /(^|\\n) *\\/\\*\\*\\n(( \\*( [^\\n]*)?\\n)+) *\\*\\/\\n(( *\\/)|(\\s*$))/, to: '$' + 1 + '$' + 5 }); } while (results.length && results.some((result) => result.hasChanged))\" && node -e \"import { replaceInFileSync } from 'replace-in-file'; [/ *\\/\\/\\s*╔═+╗ *\\n\\s*\\/\\/ *║ *[\\w]+[\\w\\s]*║ *\\n *\\/\\/ *╚═+╝ *\\n/g, /\\/\\/\\s*-*\\n\\/\\/\\s*[\\w\\s]+\\s*\\n\\/\\/\\s*-*\\s*$/].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.js', from: regex, to: '' }))\" && node -e \"import fs from 'node:fs'; import path from 'node:path'; const files = fs.readdirSync('dist', { withFileTypes: true, recursive: true }).filter((ent) => ent.isFile()).map((ent) => path.relative('dist', path.join(ent.parentPath, ent.name))); fs.mkdirSync('dist/cjs'); fs.writeFileSync('dist/cjs/package.json', '{\\n\\u0022type\\u0022: \\u0022commonjs\\u0022\\n}\\n', 'utf-8'); files.forEach((p) => { fs.mkdirSync(path.join('dist', 'cjs', path.dirname(p)), { recursive: true }); fs.cpSync(path.join('dist', p), path.join('dist', 'cjs', p)); }); files.forEach((p) => { fs.mkdirSync(path.join('dist', 'src', path.dirname(p)), { recursive: true }); fs.cpSync(path.join('dist', p), path.join('dist', 'src', p)); }); fs.readdirSync('src', { withFileTypes: true, recursive: true }).filter((ent) => ent.isFile() && ent.name.endsWith('.ts') && !ent.name.endsWith('.d.ts')).map((ent) => path.relative('src', path.join(ent.parentPath, ent.name))).forEach((p) => { fs.mkdirSync(path.join('dist', 'src', path.dirname(p)), { recursive: true }); fs.cpSync(path.join('src', p), path.join('dist', 'src', p).replace(/\\.ts$/, '') + '.d.ts'); })\" && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown && node -e \"import fs from 'node:fs'; fs.cpSync('tsconfig.build.json', 'dist/tsconfig.build.json')\" && node -e \"import { replaceInFileSync } from 'replace-in-file'; replaceInFileSync({ files: 'dist/tsconfig.build.json', from: '\\\"outDir\\\": \\\"dist\\\"', to: '\\\"outDir\\\": \\\"src\\\"' })\" && tsc-alias --resolve-full-paths -p dist/tsconfig.build.json && node -e \"import fs from 'node:fs'; import path from 'node:path'; fs.readdirSync('src', { withFileTypes: true, recursive: true }).filter((ent) => ent.isFile() && ent.name.endsWith('.ts') && !ent.name.endsWith('.d.ts')).map((ent) => path.relative('src', path.join(ent.parentPath, ent.name))).forEach((p) => { fs.renameSync(path.join('dist', 'src', p).replace(/\\.ts$/, '') + '.d.ts', path.join('dist', 'src', p)); fs.rmSync(path.join('dist', 'src', p).replace(/\\.ts$/, '') + '.js', { force: true }); })\" && node -e \"import { replaceInFileSync } from 'replace-in-file'; replaceInFileSync({ files: 'dist/tsconfig.build.json', from: '\\\"outDir\\\": \\\"src\\\"', to: '\\\"outDir\\\": \\\".\\\"' })\" && node -e \"import { replaceInFileSync } from 'replace-in-file'; [/ *\\/\\/ eslint-disable-next-line [^\\n]+\\n/g, / *\\/\\* eslint-(disable|enable) [^\\n]+ \\*\\/\\n/g, / *\\/\\/ @ts-[^\\n]+\\n/g].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.ts', from: regex, to: '' }))\" && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown && npm run esm-to-cjs -- --dir dist/cjs && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown && tsc --emitDeclarationOnly --noCheck --composite false -p dist/tsconfig.build.json && node -e \"import { replaceInFileSync } from 'replace-in-file'; replaceInFileSync({ files: 'dist/tsconfig.build.json', from: /\\\"module\\\": \\\"\\w+\\\"/, to: '\\\"module\\\": \\\"commonjs\\\"' }); replaceInFileSync({ files: 'dist/tsconfig.build.json', from: /\\\"moduleResolution\\\": \\\"\\w+\\\",/, to: '' }); replaceInFileSync({ files: 'dist/tsconfig.build.json', from: '\\\"outDir\\\": \\\".\\\"', to: '\\\"outDir\\\": \\\"cjs\\\"' })\" && tsc --emitDeclarationOnly --noCheck --composite false -p dist/tsconfig.build.json && node -e \"import fs from 'node:fs'; fs.rmSync('dist/tsconfig.build.json')\" && node -e \"import fs from 'node:fs'; import path from 'node:path'; fs.readdirSync('dist/src', { withFileTypes: true, recursive: true }).filter((ent) => ent.isFile() && ent.name.endsWith('.d.ts')).map((ent) => path.relative(path.join('dist', 'src'), path.join(ent.parentPath, ent.name))).forEach((p) => { fs.cpSync(path.join('dist', 'src', p), path.join('dist', p)); fs.rmSync(path.join('dist', p.replace(/\\.d\\.ts$/, '') + '.d.ts.map'), { force: true }); })\"",
+    "compile:dev": "node -e \"import fs from 'node:fs'; fs.cpSync('src', 'dist', { recursive: true })\" && rimraf -g \"dist/**/*.{spec,proof}.ts\" && node -e \"import path from 'node:path'; import fs from 'node:fs'; import tsBlankSpace from 'ts-blank-space'; fs.readdirSync('dist', { recursive: true }).map((file) => path.join('dist', file)).filter((file) => file.endsWith('.ts') && !file.endsWith('.d.ts') && fs.statSync(file).isFile()).forEach((file) => { fs.writeFileSync(file.substring(0, file.lastIndexOf('.')) + '.js', tsBlankSpace(fs.readFileSync(file, 'utf-8'))); fs.rmSync(file); })\" && tsc-alias --resolve-full-paths -p tsconfig.build.json && node -e \"import { replaceInFileSync } from 'replace-in-file'; [/ *\\/\\/ eslint-disable-next-line [^\\n]+\\n/g, / *\\/\\* eslint-(disable|enable) [^\\n]+ \\*\\/\\n/g, / *\\/\\/ @ts-[^\\n]+\\n/g].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.{js,ts}', from: regex, to: '' })); [/ *\\/\\/ prettier-ignore\\s*\\n/g].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.js', from: regex, to: '' })); replaceInFileSync({ files: 'dist/**/*.js', from: /(\\w+)\\s+,/g, to: '$' + 1 + ',' })\" && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown && node -e \"import { replaceInFileSync } from 'replace-in-file'; replaceInFileSync({ files: 'dist/**/*.js', from: /^ *\\*\\/\\n\\n/gm, to: '*/\\n' }); let results; do { results = replaceInFileSync({ files: 'dist/**/*.js', from: /(^|\\n) *\\/\\*\\*\\n(( \\*( [^\\n]*)?\\n)+) *\\*\\/\\n(( *\\/)|(\\s*$))/, to: '$' + 1 + '$' + 5 }); } while (results.length && results.some((result) => result.hasChanged))\" && node -e \"import { replaceInFileSync } from 'replace-in-file'; [/ *\\/\\/\\s*╔═+╗ *\\n\\s*\\/\\/ *║ *[\\w]+[\\w\\s]*║ *\\n *\\/\\/ *╚═+╝ *\\n/g, /\\/\\/\\s*-*\\n\\/\\/\\s*[\\w\\s]+\\s*\\n\\/\\/\\s*-*\\s*$/].forEach((regex) => replaceInFileSync({ files: 'dist/**/*.js', from: regex, to: '' }))\" && prettier --log-level=error --print-width 80 --trailing-comma es5 --write \"dist/**/*\" --ignore-path \"!dist/**/*\" --ignore-unknown",
+    "esm-to-cjs": "node -e \"import { parseArgs } from 'node:util'; import fs from 'node:fs'; import path from 'node:path'; const { values } = parseArgs({ args: process.argv.slice(1), options: { 'dir': { type: 'string' }, 'rename-cjs': { type: 'boolean' } }, strict: true }); for (const ent of fs.readdirSync(values.dir, { withFileTypes: true, recursive: true })) { if (!ent.isFile()) continue; const file = path.join(ent.parentPath, ent.name); let lines = fs.readFileSync(file, 'utf-8').split(/\\r?\\n/); for (let i = 0; i < lines.length; i++) { let newLine = ''; for (const regexp of [/(from ['\\u0022])([^'\\u0022]+?)(['\\u0022];?\\s*)$/u, /(import\\(['\\u0022])([^'\\u0022]+?)(['\\u0022]\\))/u]) { let match = null; while ((match = lines[i].match(regexp))) { newLine += lines[i].slice(0, match.index); lines[i] = lines[i].slice(match.index + match[0].length); newLine += match[1] + (( fs.existsSync(path.join(path.dirname(file), match[2])) || fs.existsSync(path.join(path.dirname(file), match[2].replace(/\\.js$/, values['rename-cjs'] ? '.cjs' : '.js'))) ) ? match[2].replace(/\\.js$/, values['rename-cjs'] ? '.cjs' : '.js') : match[2]) + match[3]; } } newLine += lines[i]; lines[i] = newLine; } let inImport = false; const exportAlls = []; const exportSymbols = []; if (file.endsWith('.js')) { for (let i = 0; i < lines.length; i++) { if (inImport && lines[i].match(/from ['\\u0022][^'\\u0022]+?['\\u0022];?\\s*$/u)) inImport = false; if (inImport) { lines[i] = lines[i].replace(/(\\S+?) as (\\S+?)/, '$' + 1 + ': $' + 2); continue; } if (lines[i].startsWith('import ') && !lines[i].match(/from ['\\u0022][^'\\u0022]+?['\\u0022];?\\s*$/u)) inImport = true; if (lines[i].startsWith('export ')) { let match = lines[i].match(/^export \\* from (['\\u0022][^'\\u0022]+?['\\u0022]);?\\s*$/u); if (match) { lines[i] = '<\\|REMOVED|>'; exportAlls.push('require(' + match[1] + ')'); continue; } match = lines[i].match(/^export \\* as (\\S+?) from (['\\u0022][^'\\u0022]+?['\\u0022]);?\\s*$/u); if (match) { lines[i] = '<\\|REMOVED|>'; exportSymbols.push(match[1] + ': require(' + match[2] + ')'); continue; } match = lines[i].match(/^export {([^}]*?)}\\s*;?\\s*$/); if (match) { lines[i] = '<\\|REMOVED|>'; exportSymbols.push(...match[1].split(',').map((part) => part.trim()).filter(Boolean).map((part) => part.includes(' as ') ? part.split(' as ').map((sym) => sym.trim()) : [part, part]).map(([orig, to]) => to + ': ' + orig), ); continue; } match = lines[i].match(/^export \\{([^}]+?)\\} from (['\\u0022][^'\\u0022]+?['\\u0022]);?\\s*$/u); if (match) { lines[i] = '<\\|REMOVED|>'; exportSymbols.push(...match[1].split(',').map((part) => part.trim()).filter(Boolean).map((part) => part.includes(' as ') ? part.split(' as ').map((sym) => sym.trim()) : [part, part], ).map(([orig, to]) => to + ': require(' + match[2] + ').' + orig), ); continue; } if (lines[i].startsWith('export {')) { lines[i] = '<\\|REMOVED|>'; const symbols = []; for (let j = i + 1; j < lines.length; j++) { const match = lines[j].match(/from (['\\u0022][^'\\u0022]+?['\\u0022]);?\\s*$/u); if (match) { lines[j] = '<\\|REMOVED|>'; i = j + 1; exportSymbols.push(...symbols.map(([orig, to]) => to + ': require(' + match[1] + ').' + orig), ); break; } symbols.push( lines[i].includes(' as ') ? lines[i].split(' as ').map((sym) => sym.trim()) : [lines[i].trim(), lines[i].trim()], ); lines[j] = '<\\|REMOVED|>'; } } if (lines[i].match(/^export (const|let|var) {/)) throw new Error('Destructuring export is not currently supported'); try { exportSymbols.push( lines[i].match( /^export\\s+(const|let|var|function|class)\\s+([^\\s(]+)(\\s*[(={]|\\s+extends)/, )[2], ); } catch (e) { console.error( 'Error while processing line ' + i + ' of file \\u0022' + file + '\\u0022: ' + lines[i], ); throw e; } lines[i] = lines[i].replace(/^export\\s+/, ''); continue; } const match = lines[i].match(/^import \\{([^}]+?)\\} from (['\\u0022][^'\\u0022]+?['\\u0022])(;?\\s*)$/u); if (match) { lines[i] = 'const { ' + match[1].split(',').map((part) => part.trim()).filter(Boolean).map((part) => part.includes(' as ') ? part.split(' as ').map((sym) => sym.trim()) : [part, part], ).map(([orig, to]) => (orig === to ? orig : orig + ': ' + to)).join(', ') + ' } = require(' + match[2] + ')' + match[3]; continue; } lines[i] = lines[i].replace(/^import \\* as /, 'const ').replace(/^import {/, 'const {').replace(/from (['\\u0022][^'\\u0022]+?['\\u0022])(;?\\s*)$/, '= require($' + 1 + ')$' + 2); } lines.push('module.exports = ' + (exportAlls.length ? 'Object.assign({}, ' + exportAlls.join(', ') + ', ' : '') + '{', ...exportSymbols.map((sym, i, arr) => '  ' + sym + (i !== arr.length - 1 ? ',' : '')), '}' + (exportAlls.length ? ')' : '') + ';', ''); } lines = lines.filter((line) => line !== '<\\|REMOVED|>'); const newLines = []; let isLastLineEmpty = true; for (const line of lines) { if (isLastLineEmpty && !line.trim()) continue; newLines.push(line); isLastLineEmpty = !line.trim(); } lines = newLines; const newFile = file.endsWith('.js') ? file.replace(/.js$/, values['rename-cjs'] ? '.cjs' : '.js') : (file.endsWith('.d.ts') && (fs.existsSync(file.replace(/.d.ts$/, '.js')) || fs.existsSync(file.replace(/.d.ts$/, '.cjs'))) ) ? file.replace(/.d.ts$/, values['rename-cjs'] ? '.d.cts' : '.d.ts') : file; fs.rmSync(file); fs.writeFileSync(newFile, lines.join('\\n')); }\" --",
+    "format": "prettier --no-error-on-unmatched-pattern --write \"**/*.{js,ts,json,md}\" \"*.{cjs,mjs,cts,mts}\"",
+    "postinstall": "node -e \"import fs from 'node:fs'; import path from 'node:path'; const hooksDir = path.join(process.cwd(), '.githooks'); const gitHooksDir = path.join(process.cwd(), '.git/hooks'); if (fs.existsSync(gitHooksDir)) { fs.readdirSync(hooksDir).forEach(file => { const srcFile = path.join(hooksDir, file); const destFile = path.join(gitHooksDir, file); fs.copyFileSync(srcFile, destFile); if (process.platform !== 'win32' && !file.endsWith('.cmd')) { fs.chmodSync(destFile, 0o755); } }); }\"",
+    "lint": "eslint \"{src,test,bench}/**/*.{js,jsx,ts,tsx}\" \"*.{cjs,mjs,cts,mts}\" --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --max-warnings 0",
+    "lint:fix": "eslint --fix \"{src,test,bench}/**/*.{js,jsx,ts,tsx}\" \"*.{cjs,mjs,cts,mts}\" --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --max-warnings 0",
+    "measure-size": "rimraf dist && npm run compile:dev && node -e \"import { parseArgs } from 'node:util'; import fs from 'node:fs'; import { rimraf } from 'rimraf'; import { rollup } from 'rollup'; import nodeResolve from '@rollup/plugin-node-resolve'; import terser from '@rollup/plugin-terser'; import prettyBytes from 'pretty-bytes'; import { gzipSizeSync } from 'gzip-size'; import brotliSize from 'brotli-size'; const fixed = 3; const { positionals } = parseArgs({ args: process.argv.slice(1), allowPositionals: true }); const bundle = await rollup({ input: positionals[0] ?? 'dist/index.js', plugins: [...(positionals[0] ? [nodeResolve()] : []), terser()] }); try { await bundle.write({ format: 'esm', file: 'dist/aerio.min.js' }); } finally { await bundle.close(); } const content = fs.readFileSync('dist/aerio.min.js', 'utf-8'); console.log('gzip:  ', '\\x1b[33m' + prettyBytes(content.length, { maximumFractionDigits: fixed }) + '\\x1b[0m (bundled+minified)', '→', '\\x1b[36m' + prettyBytes(gzipSizeSync(content), { maximumFractionDigits: fixed }) + '\\x1b[0m'); console.log('brotli:', '\\x1b[33m' + prettyBytes(content.length, { maximumFractionDigits: fixed }) + '\\x1b[0m (bundled+minified)', '→', '\\x1b[36m' + prettyBytes(brotliSize.sync(content), { maximumFractionDigits: fixed }) + '\\x1b[0m'); await rimraf('dist')\"",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage --coverage.reporter=text --coverage.reporter=lcov --coverage.include \"src/**/!(*.proof|*.d).{js,ts}\"",
+    "test:ui": "vitest --ui --coverage.enabled=true --coverage.include \"src/**/!(*.proof|*.d).{js,ts}\"",
+    "test:watch": "vitest",
+    "test:watch-cov": "vitest --coverage --coverage.reporter=text --coverage.reporter=lcov --coverage.include \"src/**/!(*.proof|*.d).{js,ts}\"",
+    "typecheck": "tsc --noEmit --composite false -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "hkt-core": "^1.3.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@eslint/js": "^10.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.2",
+    "@typescript-eslint/parser": "^8.72.1",
+    "@vitest/coverage-v8": "^5.1.0",
+    "@vitest/ui": "^5.1.0",
+    "brotli-size": "^4.0.0",
+    "effect": "^4.1.2",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-import-x": "^4.18.0",
+    "eslint-plugin-jsdoc": "^65.4.5",
+    "eslint-plugin-prettier": "^5.5.7",
+    "eslint-plugin-sonarjs": "^4.2.2",
+    "eslint-plugin-sort-destructure-keys": "^3.0.0",
+    "globals": "^17.14.0",
+    "gzip-size": "^7.0.0",
+    "happy-dom": "^21.0.4",
+    "json": "^11.0.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-packagejson": "^3.1.0",
+    "pretty-bytes": "^7.2.0",
+    "replace-in-file": "^9.0.0",
+    "rimraf": "^6.1.4",
+    "rollup": "^4.68.0",
+    "ts-blank-space": "^0.9.0",
+    "tsc-alias": "^1.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  }
+}
