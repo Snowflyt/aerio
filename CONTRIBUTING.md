@@ -16,7 +16,21 @@ Common commands:
 - `npm run test`
 - `npm run lint`
 - `npm run format`
-- `npm exec vitest run test/some-file.test.ts`
+- `npm run test test/some-file.test.ts`
+
+## Runtime Compatibility Workflow
+
+The README and compatibility document describe runtime support from a user perspective.
+Use the commands in this section only when you are validating or extending the compatibility matrix itself.
+
+- `npm run test:cov`: run the normal Vitest suite and automatically merge in runtime compatibility coverage before writing the final coverage report.
+- `npm run test:compat:smoke`: run `npm run build`, then smoke the real built `dist/` on current Node.js ESM, current Node.js CJS, Node.js 6 CJS, Bellard QuickJS, and QuickJS-NG.
+
+Notes:
+
+- The regular runtime-compat coverage path is folded into `npm run test:cov`.
+- The Node.js 6 runtime check downloads and runs the real `v6.17.1` binary under the repo-local `.tmp/runtime-compat` cache.
+- The QuickJS checks are npm-only and do not require a locally installed `qjs` binary.
 
 ## Project Layout
 

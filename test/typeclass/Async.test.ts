@@ -18,7 +18,7 @@ import {
   runPromise,
   unsafeRunPromise,
   unsafeRunSync,
-} from "../mini-effect";
+} from "../test-utils/mini-effect";
 
 describe("deferred", () => {
   it("returns the completed value from get", () => {

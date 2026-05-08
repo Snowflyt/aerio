@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, MiniOutcome, MiniRef, ref, runSync, unsafeRunSync } from "../mini-effect";
+import { Mini, MiniOutcome, MiniRef, ref, runSync, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("guarantee", () => {
   it("runs the finalizer after a success and preserves the value", () => {

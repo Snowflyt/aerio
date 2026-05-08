@@ -8,7 +8,29 @@
 
 import { describe, expect, it } from "vitest";
 
-import { CancellationError, Fiber, IO } from "../src";
+import { CancellationError, DefaultScheduler, Fiber, IO } from "../src";
+
+import { js, runNode6, runQuickJS } from "./test-utils/compat";
+
+const autoYieldStepCount = 20;
+
+const scheduleNodeLikeHostMacrotask = (thunk: () => void) => {
+  if (typeof setImmediate === "function") {
+    setImmediate(thunk);
+  } else {
+    setTimeout(thunk, 0);
+  }
+};
+
+const buildLongMapProgram = (steps: number) => {
+  let program = IO.of(0);
+
+  for (let step = 0; step < steps; step++) {
+    program = program.pipe(IO.map((value) => value + 1));
+  }
+
+  return program;
+};
 
 describe("IO.unsafeRunFork", () => {
   it("returns a fiber whose result can be joined", async () => {
@@ -138,4 +160,111 @@ describe("IO.unsafeRunPromiseCancellable", () => {
 
     expect(cancelled).toBe(true);
   });
+});
+
+describe("runtime auto-yield", () => {
+  it("yields to host macrotasks after many synchronous steps", async () => {
+    let hostMacrotaskSeen = false;
+
+    scheduleNodeLikeHostMacrotask(() => {
+      hostMacrotaskSeen = true;
+    });
+
+    const value = await IO.unsafeRunPromise(buildLongMapProgram(autoYieldStepCount), {
+      scheduler: new DefaultScheduler(1),
+    });
+
+    expect(value).toBe(autoYieldStepCount);
+    expect(hostMacrotaskSeen).toBe(true);
+  });
+
+  it("yields to host macrotasks after many synchronous steps in node 6", async () => {
+    const { probe, stdout } = await runNode6(
+      js`
+        const { IO, DefaultScheduler } = require("aerio");
+
+        const scheduler = new DefaultScheduler(1);
+        const scheduleHostMacrotask =
+          typeof setImmediate === "function" ?
+            setImmediate
+          : function(thunk) {
+              setTimeout(thunk, 0);
+            };
+        let hostMacrotaskSeen = false;
+        let program = IO.of(0);
+
+        scheduleHostMacrotask(function() {
+          hostMacrotaskSeen = true;
+        });
+
+        for (var step = 0; step < ${autoYieldStepCount}; step++) {
+          program = program.pipe(
+            IO.map(function(value) {
+              return value + 1;
+            }),
+          );
+        }
+
+        IO.unsafeRunPromise(program, { scheduler: scheduler }).then(
+          function(value) {
+            console.log(JSON.stringify({
+              hostMacrotaskSeen: hostMacrotaskSeen,
+              value: value,
+            }));
+          },
+          function(error) {
+            console.error(error && error.stack ? error.stack : String(error));
+            process.exitCode = 1;
+          },
+        );
+      `,
+    );
+
+    const result = JSON.parse(stdout.trim()) as {
+      hostMacrotaskSeen: boolean;
+      value: number;
+    };
+
+    expect(probe.observedVersion).toMatch(/^v6\./);
+    expect(result.value).toBe(autoYieldStepCount);
+    expect(result.hostMacrotaskSeen).toBe(true);
+  }, 300_000);
+
+  it("yields to host macrotasks after many synchronous steps in QuickJS runtimes", async () => {
+    for (const { result } of await runQuickJS<{
+      hostMacrotaskSeen: boolean;
+      value: number;
+    }>(
+      js`
+        import { IO, DefaultScheduler } from "aerio/index.js";
+
+        const osModule = await import("qjs:os").catch(() => import("os"));
+        if (!osModule || typeof osModule.setTimeout !== "function") {
+          throw new Error("QuickJS host timer is unavailable");
+        }
+
+        const scheduler = new DefaultScheduler(1);
+        let hostMacrotaskSeen = false;
+        let program = IO.of(0);
+
+        osModule.setTimeout(() => {
+          hostMacrotaskSeen = true;
+        }, 0);
+
+        for (let step = 0; step < ${autoYieldStepCount}; step++) {
+          program = program.pipe(IO.map((value) => value + 1));
+        }
+
+        const value = await IO.unsafeRunPromise(program, { scheduler });
+
+        __compat.setResult({
+          hostMacrotaskSeen,
+          value,
+        });
+      `,
+    )) {
+      expect(result!.value).toBe(autoYieldStepCount);
+      expect(result!.hostMacrotaskSeen).toBe(true);
+    }
+  }, 300_000);
 });

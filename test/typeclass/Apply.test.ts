@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, MiniRef, ref, unsafeRunSync } from "../mini-effect";
+import { Mini, MiniRef, ref, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("productL", () => {
   it("keeps the left value and still runs the right effect", () => {

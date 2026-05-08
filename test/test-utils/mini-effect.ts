@@ -23,24 +23,24 @@
 import type { RawArg0, RawTArg, TypeLambdaG } from "hkt-core";
 import { expect } from "vitest";
 
-import * as Deferred from "../src/core/Deferred";
-import type { Outcome } from "../src/core/Outcome";
-import * as Ref from "../src/core/Ref";
-import { CancellationError } from "../src/errors";
-import * as kernel from "../src/internal/kernel";
-import * as Applicative from "../src/typeclass/Applicative";
-import * as ApplicativeThrow from "../src/typeclass/ApplicativeThrow";
-import * as Apply from "../src/typeclass/Apply";
-import * as Async from "../src/typeclass/Async";
-import * as Covariant from "../src/typeclass/Covariant";
-import * as Do from "../src/typeclass/Do";
-import * as FlatMap from "../src/typeclass/FlatMap";
-import * as Monad from "../src/typeclass/Monad";
-import * as MonadCancel from "../src/typeclass/MonadCancel";
-import * as MonadZip from "../src/typeclass/MonadZip";
-import * as Of from "../src/typeclass/Of";
-import * as Spawn from "../src/typeclass/Spawn";
-import * as Sync from "../src/typeclass/Sync";
+import * as Deferred from "../../src/core/Deferred";
+import type { Outcome } from "../../src/core/Outcome";
+import * as Ref from "../../src/core/Ref";
+import { CancellationError } from "../../src/errors";
+import * as kernel from "../../src/internal/kernel";
+import * as Applicative from "../../src/typeclass/Applicative";
+import * as ApplicativeThrow from "../../src/typeclass/ApplicativeThrow";
+import * as Apply from "../../src/typeclass/Apply";
+import * as Async from "../../src/typeclass/Async";
+import * as Covariant from "../../src/typeclass/Covariant";
+import * as Do from "../../src/typeclass/Do";
+import * as FlatMap from "../../src/typeclass/FlatMap";
+import * as Monad from "../../src/typeclass/Monad";
+import * as MonadCancel from "../../src/typeclass/MonadCancel";
+import * as MonadZip from "../../src/typeclass/MonadZip";
+import * as Of from "../../src/typeclass/Of";
+import * as Spawn from "../../src/typeclass/Spawn";
+import * as Sync from "../../src/typeclass/Sync";
 
 // -----------------------------------------------------------------------------
 // Mini

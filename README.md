@@ -14,6 +14,13 @@ Aerio is a lightweight runtime for writing reliable asynchronous applications in
 
 - TODO
 
+## Compatibility
+
+Aerio's core runtime targets ES2015 engines, including Node.js 6+ and Chrome 51+.
+It also has dedicated support for Bellard QuickJS and QuickJS-NG.
+Optional APIs such as `IO.fetch`, `IO.promise` cancellation signals, and `IO.input` depend on host capabilities.
+See [docs/runtime-compat.md](docs/runtime-compat.md) for the full runtime and feature matrix.
+
 ## Recipes
 
 TBD

@@ -16,7 +16,7 @@ import {
   runPromise,
   unsafeRunPromise,
   unsafeRunSync,
-} from "../mini-effect";
+} from "../test-utils/mini-effect";
 
 /** A {@linkcode Mini} effect that succeeds with `a` after `ms` milliseconds. */
 const after = <A>(ms: number, a: A): Mini<A> => Mini.productR(Mini.sleep(ms), Mini.of(a));

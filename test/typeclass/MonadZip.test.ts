@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, unsafeRunSync } from "../mini-effect";
+import { Mini, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("zipWith", () => {
   it("combines both values with the given function", () => {

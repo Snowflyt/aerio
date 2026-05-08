@@ -9,7 +9,7 @@
 import { Window } from "happy-dom";
 import * as V from "vitest";
 
-import { IO } from "../src";
+import { IO } from "../../src";
 
 export interface TestAPI extends V.TestAPI {
   gen: {

@@ -5,6 +5,7 @@ import { CancellationError, DefaultScheduler, Fiber, FiberRuntime, IO } from "..
 import type { Op } from "../src/internal/kernel";
 
 import { withPatchedGlobals } from "./test-utils";
+import { js, runNode6 } from "./test-utils/compat";
 
 const runWithOptions = <A>(program: any, options: FiberRuntimeOptions): Promise<A> =>
   new Promise<A>((resolve, reject) =>
@@ -260,6 +261,33 @@ describe("Default scheduler host dispatch", () => {
       },
     );
   });
+
+  it("uses process.hrtime in real node 6 runtimes", async () => {
+    const { probe, result } = await runNode6<{
+      hasPerformanceNow: boolean;
+      hasProcessHrtime: boolean;
+      monotonic: number;
+    }>(
+      js`
+        const { DefaultScheduler } = require("aerio");
+
+        __compat.setResult({
+          hasPerformanceNow:
+            typeof performance !== "undefined" &&
+            performance !== null &&
+            typeof performance.now === "function",
+          hasProcessHrtime: typeof process.hrtime === "function",
+          monotonic: new DefaultScheduler().monotonic(),
+        });
+      `,
+    );
+
+    expect(probe.observedVersion).toMatch(/^v6\./);
+    expect(result!.hasPerformanceNow).toBe(false);
+    expect(result!.hasProcessHrtime).toBe(true);
+    expect(Number.isFinite(result!.monotonic)).toBe(true);
+    expect(result!.monotonic).toBeGreaterThanOrEqual(0);
+  }, 300_000);
 
   it("uses setImmediate for ceded tasks in Node-like runtimes", async () => {
     const setImmediate = vi.fn((thunk: () => void) => {

@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, unsafeRunSync } from "../mini-effect";
+import { Mini, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("imap", () => {
   it("maps the value with the to function", () => {

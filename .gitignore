@@ -11,6 +11,7 @@ lerna-debug.log*
 node_modules/
 examples/*/package-lock.json
 dist/
+.tmp/
 *.local
 
 # Coverage

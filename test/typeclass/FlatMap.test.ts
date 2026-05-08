@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, MiniOutcome, MiniRef, ref, runSync, unsafeRunSync } from "../mini-effect";
+import { Mini, MiniOutcome, MiniRef, ref, runSync, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("ap", () => {
   it("applies the function inside the left effect to the value inside the right", () => {

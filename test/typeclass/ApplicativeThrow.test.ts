@@ -8,7 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { Mini, MiniOutcome, runSync, unsafeRunSync } from "../mini-effect";
+import { Mini, MiniOutcome, runSync, unsafeRunSync } from "../test-utils/mini-effect";
 
 describe("ignore", () => {
   it("discards a successful value", () => {

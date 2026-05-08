@@ -6,7 +6,9 @@
     "lib": ["ESNext"],
     "module": "ESNext",
     "types": ["node"],
-    "rootDir": "${configDir}"
+    "rootDir": "${configDir}",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": [
     "${configDir}/src/**/*",

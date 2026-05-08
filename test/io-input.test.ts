@@ -11,6 +11,7 @@ import { PassThrough } from "node:stream";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { withDOM, withPatchedProperties } from "./test-utils";
+import { js, runNode6, runQuickJS } from "./test-utils/compat";
 
 const createTTYInput = () => Object.assign(new PassThrough(), { isTTY: true }) as PassThrough;
 
@@ -174,5 +175,44 @@ describe("IO.input", () => {
         },
       );
     });
+
+    it("reads stdin under node 6", async () => {
+      const { probe, stdout } = await runNode6(
+        js`
+          const { IO } = require("aerio");
+
+          const program = IO.input("Name: ").pipe(IO.flatMap(IO.println));
+
+          IO.unsafeRun(program);
+        `,
+        { stdin: "Alice\n" },
+      );
+
+      expect(probe.observedVersion).toMatch(/^v6\./);
+      expect(stdout).toContain("Name: ");
+      expect(stdout).toContain("Alice");
+    }, 300_000);
+  });
+
+  describe("QuickJS runtimes", () => {
+    it("reads stdin for IO.input", async () => {
+      for (const { result, stdout } of await runQuickJS<{
+        value: string;
+      }>(
+        js`
+          import { IO } from "aerio/index.js";
+
+          const value = await IO.unsafeRunPromise(IO.input("name? "));
+
+          __compat.setResult({
+            value,
+          });
+        `,
+        { stdin: "Ada\n" },
+      )) {
+        expect(stdout).toContain("name? ");
+        expect(result!.value).toBe("Ada");
+      }
+    }, 300_000);
   });
 });
