@@ -14,7 +14,8 @@
     "${configDir}/src/**/*",
     "${configDir}/test/**/*",
     "${configDir}/examples/**/*",
-    "${configDir}/bench/**/*"
+    "${configDir}/bench/**/*",
+    "${configDir}/skills/**/*.ts"
   ],
   "exclude": []
 }

@@ -29,3 +29,9 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
+
+# Agent bullshit
+.local/
+.local-context/
+CONTEXT.md
+*.local.md

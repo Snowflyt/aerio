@@ -64,6 +64,7 @@ For examples and inline comments:
 - Prefer runnable expression examples with `// => ...` comments.
 - When an example shows real output, use `IO.println(...)` or `console.log(...)` followed by `//> ...`.
 - Avoid unnecessary `console.log` usage when a plain expression example is enough.
+- For inline `//` comments in source, follow the Inline Code Comments rules in [docs/documentation-quality.md](docs/documentation-quality.md).
 
 Public API docs in `src/` should use public names such as `Schedule.spaced(...)` and `.pipe(...)` where that is the natural style.
 

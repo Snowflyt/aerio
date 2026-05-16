@@ -13,7 +13,8 @@
     "sonarjs",
     "stringifiable",
     "tinyio",
-    "uncancellable"
+    "uncancellable",
+    "worktrees"
   ],
   "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
