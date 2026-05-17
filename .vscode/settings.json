@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "aerio",
+    "Bellard",
     "cancellers",
     "contramap",
     "finalizer",
@@ -10,8 +11,10 @@
     "Kindlevel",
     "macrotask",
     "macrotasks",
+    "minzipped",
     "sonarjs",
     "stringifiable",
+    "subpaths",
     "tinyio",
     "uncancellable",
     "worktrees"
