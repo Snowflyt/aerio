@@ -68,6 +68,55 @@ void test("current node runs the built entrypoint", async () => {
   assert.equal(stdout.trim(), "node-esm-smoke");
 });
 
+void test("current node closes built ESM input when cancelled", async () => {
+  const { stdout } = await runNode(
+    js`
+      import assert from "node:assert/strict";
+      import { PassThrough } from "node:stream";
+      import { IO } from ${JSON.stringify(pathToFileURL(distEntrypoint).href)};
+
+      assert.equal(typeof require, "undefined");
+      const input = Object.assign(new PassThrough(), { isTTY: true });
+      const output = Object.assign(new PassThrough(), { isTTY: true, columns: 80, rows: 24 });
+      const stdin = Object.getOwnPropertyDescriptor(process, "stdin");
+      const stdout = Object.getOwnPropertyDescriptor(process, "stdout");
+      let promptSeen = false;
+      let resolvePrompt;
+      const prompted = new Promise((resolve) => { resolvePrompt = resolve; });
+      output.on("data", (chunk) => {
+        if (String(chunk).includes("Name: ")) {
+          promptSeen = true;
+          resolvePrompt();
+        }
+      });
+      const watchdog = setTimeout(() => { throw new Error("Input cancellation timed out"); }, 5000);
+
+      try {
+        Object.defineProperty(process, "stdin", { configurable: true, value: input });
+        Object.defineProperty(process, "stdout", { configurable: true, value: output });
+        const run = IO.unsafeRunPromiseCancellable(IO.input("Name: "));
+        assert.equal(promptSeen, false);
+        const rejected = assert.rejects(run.promise, { name: "CancellationError" });
+        await prompted;
+        assert.ok(input.listenerCount("keypress") > 0);
+        await run.cancel();
+        await rejected;
+        assert.equal(input.listenerCount("keypress"), 0);
+        assert.equal(input.listenerCount("end"), 0);
+      } finally {
+        clearTimeout(watchdog);
+        input.destroy();
+        output.destroy();
+        Object.defineProperty(process, "stdin", stdin);
+        Object.defineProperty(process, "stdout", stdout);
+      }
+      console.log("input-cancelled");
+    `,
+  );
+
+  assert.equal(stdout.trim(), "input-cancelled");
+});
+
 void test("current node runs the built CJS entrypoint", async () => {
   const { stdout } = await runNodeCJS(
     js`

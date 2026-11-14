@@ -836,7 +836,7 @@ export const deriveInput = <F extends HKT<unknown, unknown> = IOHKT>(
               inputNode(readline.createInterface);
             });
 
-            return [close, () => done, () => (done = true)] as const;
+            return [() => close(), () => done, () => (done = true)] as const;
           }),
           ([close, isDone, setDone]) =>
             F.onCancel(
