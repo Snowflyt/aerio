@@ -133,6 +133,36 @@ describe("IO.guarantee", () => {
   });
 });
 
+describe("IO.guarantee regressions", () => {
+  it.gen("does not retry a failed suspended finalizer", function* () {
+    const error = new Error("cleanup");
+    let constructions = 0;
+    let runs = 0;
+    const finalizer = IO.suspend(() => {
+      constructions++;
+      return IO.sync(() => {
+        runs++;
+        throw error;
+      });
+    });
+
+    expect(yield* IO.catch(IO.of(42).pipe(IO.guarantee(finalizer)), IO.of)).toBe(error);
+    expect(constructions).toBe(1);
+    expect(runs).toBe(1);
+  });
+
+  it.gen("preserves the source error when the finalizer also fails", function* () {
+    const sourceError = new Error("source");
+    const finalizerError = new Error("finalizer");
+    const error = yield* IO.catch(
+      IO.throw(sourceError).pipe(IO.guarantee(IO.throw(finalizerError))),
+      IO.of,
+    );
+
+    expect(error).toBe(sourceError);
+  });
+});
+
 describe("IO.guaranteeCase", () => {
   it.gen("observes success and preserves the value", function* () {
     const tags = yield* IO.ref<string[]>([]);
