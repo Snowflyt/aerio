@@ -21,6 +21,7 @@ describe("IO.fork", () => {
       const releaseB = yield* IO.deferred<void>();
       const error = new Error("parent failed");
       const record = (event: string) => IO.sync(() => void events.push(event));
+
       const child = (name: string, release: IO<void>) =>
         IO.never().pipe(
           IO.onCancel(
