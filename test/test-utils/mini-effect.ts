@@ -389,12 +389,8 @@ export const MiniDeferred = {
  */
 export const runSync = <A>(self: Mini<A>): MiniOutcome<A> => {
   const fiber = new kernel.FiberRuntime<A>(
-    {},
+    { scheduler: new kernel.DefaultScheduler(Infinity) },
     self as unknown as kernel.Op<A>,
-    null,
-    null,
-    null,
-    true,
   );
   fiber.run();
   const outcome = fiber.outcome;
