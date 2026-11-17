@@ -85,14 +85,14 @@ const remapCompatCoverageEntries = async (
 export class CustomCompatCoverageProvider implements CoverageProvider {
   readonly #delegate: CoverageProvider;
   readonly name: string;
-  readonly version: string | undefined;
+  readonly version?: string;
   #compatCoverageTempRoot: string | null = null;
   #compatCoverageFile: string | null = null;
 
-  constructor(delegate: CoverageProvider & { version?: string }) {
+  constructor(delegate: CoverageProvider) {
     this.#delegate = delegate;
     this.name = delegate.name;
-    this.version = delegate.version;
+    if (delegate.version !== undefined) this.version = delegate.version;
   }
 
   async initialize(ctx: Vitest) {
@@ -116,8 +116,8 @@ export class CustomCompatCoverageProvider implements CoverageProvider {
     return this.#delegate.onAfterSuiteRun(meta);
   }
 
-  onTestRunStart() {
-    return this.#delegate.onTestRunStart?.();
+  onTestRunStart(specifications: Parameters<NonNullable<CoverageProvider["onTestRunStart"]>>[0]) {
+    return this.#delegate.onTestRunStart?.(specifications);
   }
 
   onTestFailure() {
@@ -185,9 +185,7 @@ const coverageProviderModule: CoverageProviderModule = {
     { takeCoverage: istanbulCoverageModule.takeCoverage }
   : {}),
   async getProvider() {
-    const delegate = (await istanbulCoverageModule.getProvider()) as CoverageProvider & {
-      version?: string;
-    };
+    const delegate = await istanbulCoverageModule.getProvider();
     return new CustomCompatCoverageProvider(delegate);
   },
 };
