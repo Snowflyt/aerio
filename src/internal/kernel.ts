@@ -1274,12 +1274,9 @@ export class DefaultScheduler implements Scheduler {
   }
 
   private _drainBatch(): void {
+    const end = Math.min(this._ready.length, this._next + this._maxTasksPerBatch);
     try {
-      for (
-        let count = 0;
-        count < this._maxTasksPerBatch && this._next < this._ready.length;
-        count++
-      ) {
+      while (this._next < end) {
         const task = this._ready[this._next]!;
         this._ready[this._next++] = undefined;
         task();
