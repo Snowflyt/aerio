@@ -8,7 +8,7 @@
 
 import { describe, expect } from "vitest";
 
-import { Fiber, IO, Ref } from "../src";
+import { Deferred, Fiber, IO, Ref } from "../src";
 
 import { it } from "./test-utils";
 
@@ -31,12 +31,14 @@ describe("IO.acquireUseRelease", () => {
     const events = yield* IO.ref<string[]>([]);
     const record = (event: string) => events.pipe(Ref.update((xs) => [...xs, event]));
 
+    const started = yield* IO.deferred<undefined>();
     const fiber = yield* IO.acquireUseRelease(
       record("acquire").pipe(IO.as("resource")),
-      () => IO.never(),
+      () => started.pipe(Deferred.complete(undefined), IO.zipR(IO.never())),
       (resource) => record(`release:${resource}`),
     ).pipe(IO.fork);
 
+    yield* started.pipe(Deferred.get);
     yield* fiber.pipe(Fiber.cancel);
 
     const outcome = yield* fiber.pipe(Fiber.await);

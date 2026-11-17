@@ -8,7 +8,7 @@
 
 import { describe, expect } from "vitest";
 
-import { Fiber, IO, Ref } from "../src";
+import { Deferred, Fiber, IO, Ref } from "../src";
 import { CancellationError } from "../src/errors";
 
 import { it } from "./test-utils";
@@ -27,7 +27,11 @@ describe("IO.onCancel", () => {
     const cancelled = yield* IO.ref(false);
     const completed = yield* IO.ref(false);
 
-    const fiber = yield* IO.never().pipe(IO.onCancel(cancelled.pipe(Ref.set(true))), IO.fork);
+    const started = yield* IO.deferred<undefined>();
+    const fiber = yield* started
+      .pipe(Deferred.complete(undefined), IO.zipR(IO.never()))
+      .pipe(IO.onCancel(cancelled.pipe(Ref.set(true))), IO.fork);
+    yield* started.pipe(Deferred.get);
     yield* fiber.pipe(Fiber.cancel);
 
     const outcome = yield* fiber.pipe(Fiber.await);
@@ -42,7 +46,8 @@ describe("IO.onCancel", () => {
   it.gen("continues unwinding cancellation when a finalizer throws", function* () {
     const ranLaterFinalizer = yield* IO.ref(false);
 
-    const fiber = yield* IO.never().pipe(
+    const started = yield* IO.deferred<undefined>();
+    const fiber = yield* started.pipe(Deferred.complete(undefined), IO.zipR(IO.never())).pipe(
       IO.onCancel(ranLaterFinalizer.pipe(Ref.set(true))),
       IO.onCancel(
         IO.sync(() => {
@@ -52,6 +57,7 @@ describe("IO.onCancel", () => {
       IO.fork,
     );
 
+    yield* started.pipe(Deferred.get);
     yield* fiber.pipe(Fiber.cancel);
 
     const outcome = yield* fiber.pipe(Fiber.await);
@@ -119,7 +125,11 @@ describe("IO.guarantee", () => {
     );
     expect(failure).toBe(error);
 
-    const fiber = yield* IO.never().pipe(IO.guarantee(record("cancel-finalizer")), IO.fork);
+    const started = yield* IO.deferred<undefined>();
+    const fiber = yield* started
+      .pipe(Deferred.complete(undefined), IO.zipR(IO.never()))
+      .pipe(IO.guarantee(record("cancel-finalizer")), IO.fork);
+    yield* started.pipe(Deferred.get);
     yield* fiber.pipe(Fiber.cancel);
 
     const outcome = yield* fiber.pipe(Fiber.await);
@@ -222,7 +232,8 @@ describe("IO.guaranteeCase", () => {
   it.gen("observes cancellation exactly once in innermost-first order", function* () {
     const events = yield* IO.ref<string[]>([]);
 
-    const fiber = yield* IO.never().pipe(
+    const started = yield* IO.deferred<undefined>();
+    const fiber = yield* started.pipe(Deferred.complete(undefined), IO.zipR(IO.never())).pipe(
       IO.guaranteeCase((outcome) =>
         IO.gen(function* () {
           yield* events.pipe(Ref.update((xs) => [...xs, `inner:${outcome._tag}`]));
@@ -235,6 +246,7 @@ describe("IO.guaranteeCase", () => {
       IO.fork,
     );
 
+    yield* started.pipe(Deferred.get);
     yield* fiber.pipe(Fiber.cancel);
 
     const outcome = yield* fiber.pipe(Fiber.await);
