@@ -778,10 +778,10 @@ describe("Runtime fairness semantics", () => {
     expect(fiber.outcome).toBeNull();
     expect(completedSteps).toBeGreaterThan(0);
     expect(completedSteps).toBeLessThan(stepCount);
-    expect(scheduler.tasks).toHaveLength(1);
-    expect(scheduler.hostTasks).toHaveLength(0);
+    expect(scheduler.hostTasks).toHaveLength(1);
+    expect(scheduler.tasks).toHaveLength(0);
 
-    flushTasks(scheduler.tasks);
+    flushTasks(scheduler.hostTasks);
 
     expect(completedSteps).toBe(stepCount);
     expect(fiber.outcome?._tag).toBe("Succeeded");
@@ -803,18 +803,18 @@ describe("Runtime fairness semantics", () => {
 
     fibers.forEach((fiber) => fiber.run());
 
-    expect(scheduler.tasks).toHaveLength(2);
+    expect(scheduler.hostTasks).toHaveLength(2);
     const initialProgress = [...progress];
 
-    scheduler.tasks.shift()!();
+    scheduler.hostTasks.shift()!();
     expect(progress[0]).toBeGreaterThan(initialProgress[0]!);
     expect(progress[1]).toBe(initialProgress[1]);
 
-    scheduler.tasks.shift()!();
+    scheduler.hostTasks.shift()!();
     expect(progress[1]).toBeGreaterThan(initialProgress[1]!);
-    expect(scheduler.tasks).toHaveLength(2);
+    expect(scheduler.hostTasks).toHaveLength(2);
 
-    flushTasks(scheduler.tasks);
+    flushTasks(scheduler.hostTasks);
 
     expect(progress).toEqual([stepCount, stepCount]);
     expect(fibers.map((fiber) => fiber.outcome?._tag)).toEqual(["Succeeded", "Succeeded"]);
