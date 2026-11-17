@@ -34,3 +34,7 @@ This document describes the fiber runtime’s control state, scheduler boundarie
 - Remap compat coverage with source maps before merging it into Vitest coverage.
 - Keep source-mode compat independent from prebuilt `dist/`; reserve built `dist/` validation for smoke workflows.
 - Prefer real QuickJS and QuickJS-NG CLIs over mock shims for `qjs:std` and `qjs:os` behavior.
+
+## Cede policy review
+
+The [cede scheduling policy proposal](cede-policy-proposal.md) records the distinction between host yielding and ready-queue promotion, together with the unresolved historical test expectations. It is a proposal, not a runtime change.
