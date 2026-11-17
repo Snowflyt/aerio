@@ -87,6 +87,20 @@ const cede = kernel.deriveCede<MiniHKT>(Object.prototype);
 
 const racePair = kernel.deriveRacePair<MiniHKT>(Object.prototype);
 
+const guaranteeCase = MonadCancel.deriveGuaranteeCase<MiniHKT, unknown>({
+  as: Covariant.deriveAs<MiniHKT>({
+    map: Monad.deriveMap<MiniHKT>({ of, flatMap }),
+  }),
+  void: Of.deriveVoid<MiniHKT>({ of }),
+  of,
+  productR: FlatMap.deriveProductR<MiniHKT>({ flatMap }),
+  flatMap,
+  throw: throw_,
+  catch: catch_,
+  uncancellable,
+  onCancel,
+});
+
 export const Mini = {
   // Constructors
   of,
@@ -246,16 +260,11 @@ export const Mini = {
 
   // Resource management
   acquireUseRelease: MonadCancel.deriveAcquireUseRelease<MiniHKT, unknown>({
-    as: Covariant.deriveAs<MiniHKT>({
-      map: Monad.deriveMap<MiniHKT>({ of, flatMap }),
-    }),
     of,
-    productR: FlatMap.deriveProductR<MiniHKT>({ flatMap }),
+    void: Of.deriveVoid<MiniHKT>({ of }),
     flatMap,
-    throw: throw_,
-    catch: catch_,
     uncancellable,
-    onCancel,
+    guaranteeCase,
   }),
 
   // Methods
@@ -325,28 +334,8 @@ export const Mini = {
     catch: catch_,
   }),
   onCancel,
-  guarantee: MonadCancel.deriveGuarantee<MiniHKT, unknown>({
-    as: Covariant.deriveAs<MiniHKT>({
-      map: Monad.deriveMap<MiniHKT>({ of, flatMap }),
-    }),
-    of,
-    productR: FlatMap.deriveProductR<MiniHKT>({ flatMap }),
-    flatMap,
-    throw: throw_,
-    catch: catch_,
-    uncancellable,
-    onCancel,
-  }),
-  guaranteeCase: MonadCancel.deriveGuaranteeCase<MiniHKT, unknown>({
-    map: Monad.deriveMap<MiniHKT>({ of, flatMap }),
-    of,
-    productR: FlatMap.deriveProductR<MiniHKT>({ flatMap }),
-    flatMap,
-    throw: throw_,
-    catch: catch_,
-    uncancellable,
-    onCancel,
-  }),
+  guarantee: MonadCancel.deriveGuarantee<MiniHKT, unknown>({ guaranteeCase }),
+  guaranteeCase,
 } as const;
 
 // -----------------------------------------------------------------------------
