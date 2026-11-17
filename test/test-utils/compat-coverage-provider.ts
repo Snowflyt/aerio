@@ -154,12 +154,12 @@ export class CustomCompatCoverageProvider implements CoverageProvider {
     return normalizedCoverageMap;
   }
 
-  reportCoverage(
+  async reportCoverage(
     coverage: Parameters<CoverageProvider["reportCoverage"]>[0],
     reportContext: ReportContext,
   ) {
     try {
-      return this.#delegate.reportCoverage(coverage, reportContext);
+      return await this.#delegate.reportCoverage(coverage, reportContext);
     } finally {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete process.env[compatCoverageFileEnv];
